@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/hello-world-in-akka.iml" filepath="$PROJECT_DIR$/.idea/hello-world-in-akka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/akka-in-action.iml" filepath="$PROJECT_DIR$/.idea/akka-in-action.iml" />
     </modules>
   </component>
 </project>

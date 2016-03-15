@@ -1,17 +1,25 @@
 package cn.van.kuang.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
- * Simple ID generator base on current system time
+ * Simple ID generator base on machine name and millis time
  */
 public final class ID {
 
-    private final static SimpleDateFormat formater = new SimpleDateFormat("yyyymmddHHMMSSs");
+    private static long SEED = System.currentTimeMillis();
 
-    public static String generateRequestID() {
-        return formater.format(new Date());
+    public synchronized static String generateRequestID() {
+        return getMachineName() + "-" + (SEED++);
+    }
+
+    private static String getMachineName() {
+        try {
+            return InetAddress.getLocalHost().getHostName().toUpperCase();
+        } catch (UnknownHostException e) {
+            return "UNKNOWN";
+        }
     }
 
     private ID() {

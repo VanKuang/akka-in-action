@@ -14,6 +14,11 @@ public class QueryWorker extends UntypedActor {
     private final static Logger logger = LoggerFactory.getLogger(QueryWorker.class);
 
     @Override
+    public void preStart() throws Exception {
+        Cache.init();
+    }
+
+    @Override
     public void onReceive(Object message) throws Exception {
 
         if (message instanceof Request) {
