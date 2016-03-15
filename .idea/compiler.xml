@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="akka-in-action" />
         <module name="hello-world-in-akka" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="akka-in-action" target="1.5" />
       <module name="hello-world-in-akka" target="1.5" />
     </bytecodeTargetLevel>
   </component>
