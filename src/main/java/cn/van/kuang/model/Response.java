@@ -2,8 +2,8 @@ package cn.van.kuang.model;
 
 public class Response<T> {
 
-    private int status;
-    private T result;
+    private final int status;
+    private final T result;
 
     public Response(int status, T result) {
         this.status = status;
