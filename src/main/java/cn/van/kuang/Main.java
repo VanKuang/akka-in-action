@@ -1,13 +1,18 @@
 package cn.van.kuang;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
+import akka.actor.*;
+import akka.pattern.Patterns;
 import cn.van.kuang.actor.ActorMaster;
 import cn.van.kuang.actor.AskActor;
+import cn.van.kuang.actor.HotSwapActor;
+import cn.van.kuang.actor.PoisonedActor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import scala.concurrent.Await;
+import scala.concurrent.Future;
+import scala.concurrent.duration.Duration;
+
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -22,15 +27,53 @@ public class Main {
 
         master.tell("1,2,3,4,5,100", ActorRef.noSender());
 
-        testSelection(akkaSystem);
+        trySelection(akkaSystem);
 
+        tryAsk(akkaSystem);
+
+        tryPoison(akkaSystem);
+
+        tryGracefulStop(akkaSystem);
+
+        tryHotSwap(akkaSystem);
+    }
+
+    private static void trySelection(ActorSystem akkaSystem) {
+        ActorSelection masterWorkerSelection = akkaSystem.actorSelection("/user/ActorMaster");
+        logger.info("Selection of master actor: {}", masterWorkerSelection);
+    }
+
+    private static void tryAsk(ActorSystem akkaSystem) {
         final ActorRef askActor = akkaSystem.actorOf(Props.create(AskActor.class), "AskActor");
         askActor.tell("ask", ActorRef.noSender());
     }
 
-    private static void testSelection(ActorSystem akkaSystem) {
-        ActorSelection masterWorkerSelection = akkaSystem.actorSelection("/user/ActorMaster");
-        logger.info("Selection of master actor: {}", masterWorkerSelection);
+    private static void tryPoison(ActorSystem akkaSystem) {
+        final ActorRef poisonedActor = akkaSystem.actorOf(Props.create(PoisonedActor.class), "PoisonedActor");
+        poisonedActor.tell(PoisonPill.getInstance(), ActorRef.noSender());
+    }
+
+    private static void tryGracefulStop(ActorSystem akkaSystem) {
+        final ActorRef oneShotActor = akkaSystem.actorOf(Props.create(PoisonedActor.class), "OneShotActor");
+
+        Future<Boolean> future = Patterns.gracefulStop(oneShotActor, Duration.create(1, TimeUnit.SECONDS), "Shutdown");
+        oneShotActor.tell(PoisonPill.getInstance(), ActorRef.noSender());
+
+        try {
+            Await.result(future, Duration.create(2, TimeUnit.SECONDS));
+        } catch (Exception e) {
+            logger.info("OneShotActor did not shutdown.", e);
+        }
+    }
+
+    private static void tryHotSwap(ActorSystem akkaSystem) {
+        final ActorRef hotSwapActor = akkaSystem.actorOf(Props.create(HotSwapActor.class), "HotSwapActor");
+        hotSwapActor.tell("Basketball", ActorRef.noSender());
+        hotSwapActor.tell("What now?", ActorRef.noSender());
+        hotSwapActor.tell("Football", ActorRef.noSender());
+        hotSwapActor.tell("What now?", ActorRef.noSender());
+        hotSwapActor.tell("Basketball", ActorRef.noSender());
+        hotSwapActor.tell("What now?", ActorRef.noSender());
     }
 
 }
