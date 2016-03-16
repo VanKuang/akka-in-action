@@ -1,4 +1,4 @@
-package cn.van.kuang.worker;
+package cn.van.kuang.actor;
 
 import akka.actor.UntypedActor;
 import cn.van.kuang.model.Request;
@@ -9,9 +9,9 @@ import cn.van.kuang.util.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class QueryWorker extends UntypedActor {
+public class QueryActor extends UntypedActor {
 
-    private final static Logger logger = LoggerFactory.getLogger(QueryWorker.class);
+    private final static Logger logger = LoggerFactory.getLogger(QueryActor.class);
 
     @Override
     public void preStart() throws Exception {
@@ -24,7 +24,7 @@ public class QueryWorker extends UntypedActor {
         if (message instanceof Request) {
             Request request = (Request) message;
 
-            logger.info("Received {}", request);
+            logger.info("Received {} from {}", request, getSender().path().name());
 
             Result result = Cache.getResult(request.getQueryID());
 

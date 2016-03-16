@@ -1,4 +1,4 @@
-package cn.van.kuang.worker;
+package cn.van.kuang.actor;
 
 import akka.actor.UntypedActor;
 import cn.van.kuang.model.Response;
@@ -18,9 +18,6 @@ public class CompleteListener extends UntypedActor {
             Response response = (Response) message;
 
             logger.info("Aggregate all response(s), size: {}", ((List) response.getResult()).size());
-            logger.info("Going to shutdown akka system");
-
-            getContext().system().terminate();
         } else {
             unhandled(message);
         }

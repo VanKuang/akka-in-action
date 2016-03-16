@@ -1,12 +1,12 @@
 package cn.van.kuang.util;
 
 import akka.japi.Creator;
-import cn.van.kuang.worker.QueryWorker;
+import cn.van.kuang.actor.QueryActor;
 
-public class QueryWorkerCreator implements Creator<QueryWorker> {
+public class QueryWorkerCreator implements Creator<QueryActor> {
 
-    public QueryWorker create() throws Exception {
-        return new QueryWorker();
+    public QueryActor create() throws Exception {
+        return new QueryActor();
     }
 
 }

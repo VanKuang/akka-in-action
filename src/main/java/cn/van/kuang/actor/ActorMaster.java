@@ -1,4 +1,4 @@
-package cn.van.kuang.worker;
+package cn.van.kuang.actor;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MasterWorker extends UntypedActor {
+public class ActorMaster extends UntypedActor {
 
-    private final static Logger logger = LoggerFactory.getLogger(MasterWorker.class);
+    private final static Logger logger = LoggerFactory.getLogger(ActorMaster.class);
 
     private final static int MAX_QUERY_WORKER_POOL = 5;
 
@@ -29,7 +29,7 @@ public class MasterWorker extends UntypedActor {
 
     private int queryCount;
 
-    public MasterWorker() {
+    public ActorMaster() {
         RoundRobinPool roundRobinPool = new RoundRobinPool(MAX_QUERY_WORKER_POOL);
 
         // create it's child actor
@@ -37,8 +37,8 @@ public class MasterWorker extends UntypedActor {
                 Props.create(CompleteListener.class),
                 "CompleteListener");
         this.workerRouter = getContext().actorOf(
-                roundRobinPool.props(Props.create(QueryWorker.class)),
-                "QueryWorker");
+                roundRobinPool.props(Props.create(QueryActor.class)),
+                "QueryActor");
         this.watchActor = getContext().actorOf(
                 Props.create(WatchActor.class),
                 "WatchActor");
@@ -58,7 +58,9 @@ public class MasterWorker extends UntypedActor {
 
             logger.info("Got response: {}", message);
 
-            responses.add((Response) message);
+            Response response = (Response) message;
+
+            responses.add(response);
 
             if (responses.size() == 1) {
                 watchActor.tell("kill", getSelf());

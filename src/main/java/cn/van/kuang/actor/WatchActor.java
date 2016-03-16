@@ -1,4 +1,4 @@
-package cn.van.kuang.worker;
+package cn.van.kuang.actor;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
