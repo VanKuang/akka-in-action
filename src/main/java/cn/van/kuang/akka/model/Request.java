@@ -1,6 +1,6 @@
-package cn.van.kuang.model;
+package cn.van.kuang.akka.model;
 
-import cn.van.kuang.util.ID;
+import cn.van.kuang.akka.util.ID;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

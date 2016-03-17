@@ -1,6 +1,6 @@
-package cn.van.kuang.util;
+package cn.van.kuang.akka.util;
 
-import cn.van.kuang.model.Result;
+import cn.van.kuang.akka.model.Result;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

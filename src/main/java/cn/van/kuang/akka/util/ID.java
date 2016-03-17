@@ -1,4 +1,4 @@
-package cn.van.kuang.util;
+package cn.van.kuang.akka.util;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

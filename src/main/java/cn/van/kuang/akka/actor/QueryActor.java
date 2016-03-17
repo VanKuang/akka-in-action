@@ -1,11 +1,11 @@
-package cn.van.kuang.actor;
+package cn.van.kuang.akka.actor;
 
 import akka.actor.UntypedActor;
-import cn.van.kuang.model.Request;
-import cn.van.kuang.model.Response;
-import cn.van.kuang.model.Result;
-import cn.van.kuang.model.StatusCode;
-import cn.van.kuang.util.Cache;
+import cn.van.kuang.akka.model.Request;
+import cn.van.kuang.akka.model.Response;
+import cn.van.kuang.akka.model.Result;
+import cn.van.kuang.akka.model.StatusCode;
+import cn.van.kuang.akka.util.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

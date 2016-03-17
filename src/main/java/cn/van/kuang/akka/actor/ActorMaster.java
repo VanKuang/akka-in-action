@@ -1,12 +1,12 @@
-package cn.van.kuang.actor;
+package cn.van.kuang.akka.actor;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinPool;
-import cn.van.kuang.model.Request;
-import cn.van.kuang.model.Response;
-import cn.van.kuang.model.StatusCode;
+import cn.van.kuang.akka.model.Request;
+import cn.van.kuang.akka.model.Response;
+import cn.van.kuang.akka.model.StatusCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

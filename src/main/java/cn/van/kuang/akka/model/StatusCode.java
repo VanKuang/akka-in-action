@@ -1,4 +1,4 @@
-package cn.van.kuang.model;
+package cn.van.kuang.akka.model;
 
 public interface StatusCode {
 

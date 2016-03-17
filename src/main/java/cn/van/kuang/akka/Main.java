@@ -1,11 +1,11 @@
-package cn.van.kuang;
+package cn.van.kuang.akka;
 
 import akka.actor.*;
 import akka.pattern.Patterns;
-import cn.van.kuang.actor.ActorMaster;
-import cn.van.kuang.actor.AskActor;
-import cn.van.kuang.actor.HotSwapActor;
-import cn.van.kuang.actor.PoisonedActor;
+import cn.van.kuang.akka.actor.ActorMaster;
+import cn.van.kuang.akka.actor.AskActor;
+import cn.van.kuang.akka.actor.HotSwapActor;
+import cn.van.kuang.akka.actor.PoisonedActor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.Await;

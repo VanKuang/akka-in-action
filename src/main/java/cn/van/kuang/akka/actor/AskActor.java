@@ -1,4 +1,4 @@
-package cn.van.kuang.actor;
+package cn.van.kuang.akka.actor;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -7,10 +7,10 @@ import akka.dispatch.Futures;
 import akka.dispatch.Mapper;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
-import cn.van.kuang.model.Request;
-import cn.van.kuang.model.Response;
-import cn.van.kuang.model.Result;
-import cn.van.kuang.model.StatusCode;
+import cn.van.kuang.akka.model.Request;
+import cn.van.kuang.akka.model.Response;
+import cn.van.kuang.akka.model.Result;
+import cn.van.kuang.akka.model.StatusCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.Future;

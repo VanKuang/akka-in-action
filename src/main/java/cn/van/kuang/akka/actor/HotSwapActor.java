@@ -1,4 +1,4 @@
-package cn.van.kuang.actor;
+package cn.van.kuang.akka.actor;
 
 import akka.actor.UntypedActor;
 import akka.japi.Procedure;
