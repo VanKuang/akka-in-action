@@ -6,6 +6,7 @@ import cn.van.kuang.akka.actor.ActorMaster;
 import cn.van.kuang.akka.actor.AskActor;
 import cn.van.kuang.akka.actor.HotSwapActor;
 import cn.van.kuang.akka.actor.PoisonedActor;
+import cn.van.kuang.akka.actor.typed.TypedCalculateActor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.Await;
@@ -18,7 +19,7 @@ public class Main {
 
     private final static Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         logger.info("Starting test akka system.");
 
         ActorSystem akkaSystem = ActorSystem.create("Hello-World-In-Akka");
@@ -36,6 +37,8 @@ public class Main {
         tryGracefulStop(akkaSystem);
 
         tryHotSwap(akkaSystem);
+
+        tryTypedActor(akkaSystem);
     }
 
     private static void trySelection(ActorSystem akkaSystem) {
@@ -74,6 +77,11 @@ public class Main {
         hotSwapActor.tell("What now?", ActorRef.noSender());
         hotSwapActor.tell("Basketball", ActorRef.noSender());
         hotSwapActor.tell("What now?", ActorRef.noSender());
+    }
+
+    private static void tryTypedActor(ActorSystem akkaSystem) throws Exception {
+        TypedCalculateActor calculateActor = new TypedCalculateActor(akkaSystem);
+        calculateActor.testAPIs();
     }
 
 }
