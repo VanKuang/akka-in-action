@@ -7,6 +7,7 @@ import cn.van.kuang.akka.actor.AskActor;
 import cn.van.kuang.akka.actor.HotSwapActor;
 import cn.van.kuang.akka.actor.PoisonedActor;
 import cn.van.kuang.akka.actor.typed.TypedCalculateActor;
+import cn.van.kuang.akka.persistence.PersistentActor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.Await;
@@ -39,6 +40,8 @@ public class Main {
         tryHotSwap(akkaSystem);
 
         tryTypedActor(akkaSystem);
+
+        tryPersistent(akkaSystem);
     }
 
     private static void trySelection(ActorSystem akkaSystem) {
@@ -82,6 +85,23 @@ public class Main {
     private static void tryTypedActor(ActorSystem akkaSystem) throws Exception {
         TypedCalculateActor calculateActor = new TypedCalculateActor(akkaSystem);
         calculateActor.testAPIs();
+    }
+
+    private static void tryPersistent(ActorSystem actorSystem) throws Exception {
+        final ActorRef persistentActor = actorSystem.actorOf(Props.create(PersistentActor.class), "PersistentActor");
+
+        persistentActor.tell("Kobe", ActorRef.noSender());
+        persistentActor.tell("LBJ", ActorRef.noSender());
+        persistentActor.tell("Wade", ActorRef.noSender());
+        persistentActor.tell("snapshot", ActorRef.noSender());
+        persistentActor.tell("KD", ActorRef.noSender());
+        persistentActor.tell("Westbrook", ActorRef.noSender());
+        persistentActor.tell("Curry", ActorRef.noSender());
+        persistentActor.tell("print", ActorRef.noSender());
+
+        Thread.sleep(1000L);
+
+        actorSystem.terminate();
     }
 
 }

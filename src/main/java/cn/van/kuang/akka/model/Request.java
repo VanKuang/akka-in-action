@@ -16,7 +16,7 @@ public class Request {
     public Request(int queryID) {
         this.queryID = queryID;
 
-        this.id = ID.generateRequestID();
+        this.id = ID.generate();
         this.timestamp = System.currentTimeMillis();
     }
 
